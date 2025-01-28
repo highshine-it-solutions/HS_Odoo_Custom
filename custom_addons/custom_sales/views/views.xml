@@ -1,0 +1,183 @@
+<odoo>
+    <template id="report_saleorder_barcode_inherit" inherit_id="sale.report_saleorder_document">
+        <!-- <xpath expr="//t[@t-set='doc']" position="before">
+            <div class="text-center mb-3" style="page-break-inside: avoid;">
+                <img src="/home/gokul/odoo/odoo18/odoo18/custom_addons/custom_sales/static/src/img/logo.jpg" alt="Company Logo" style="max-height: 10px;"/>
+                <h3 class="mt-3" style="margin-bottom: 0;">Lightzart</h3>
+            </div>
+        </xpath> -->
+        <xpath expr="//table[hasclass('o_main_table')]" position="replace">
+        <div class="d-flex justify-content-center">
+            <table class="o_has_total_table table o_main_table table-borderless ">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr>
+                        <th name="th_type" class="text-start" style="font-size: 10px;">Type</th>
+                        <th name="th_quantity" class="text-end text-wrap" style="font-size: 10px;">Quantity</th>
+                        <!-- Extra Fields start -->
+                        <th name="th_location" class="text-start text-wrap" style="font-size: 10px;">Location</th>
+                        <th name="th_dimension" class="text-start text-wrap" style="font-size: 10px;">Dimension</th>
+                        <th name="th_finish" class="text-start text-wrap" style="font-size: 10px;">Finish</th>
+                        <th name="th_adaptability" class="text-start text-wrap" style="font-size: 10px;">Adaptability</th>
+                        <th name="th_ip_rating" class="text-start text-wrap" style="font-size: 10px;">IP Rating</th>
+                        <th name="th_optics_type" class="text-start text-wrap" style="font-size: 10px;">Optics Type</th>
+                        <th name="th_beam_angle" class="text-start text-wrap" style="font-size: 10px;">Beam Angle</th>
+                        <th name="th_light_source" class="text-start text-wrap" style="font-size: 10px;">Light Source</th>
+                        <th name="th_actual_power" class="text-start text-wrap" style="font-size: 10px;">Actual Power</th>
+                        <th name="th_unit" class="text-start text-wrap" style="font-size: 10px;">Unit</th>
+                        <th name="th_lumen_package" class="text-start text-wrap" style="font-size: 10px;">Lumen Package</th>
+                        <th name="th_color_temperature" class="text-start text-wrap" style="font-size: 10px;">Color Temperature</th>
+                        <th name="th_cri" class="text-start text-wrap" style="font-size: 10px;">CRI</th>
+                        <th name="th_power_supply" class="text-start text-wrap" style="font-size: 10px;">Power Supply</th>
+                        <!-- <th name="th_control_type" class="text-start text-wrap" style="font-size: 10px;">Control Type</th>
+                        <th name="th_unit" class="text-start text-wrap" style="font-size: 10px;">Unit</th>
+                        <th name="th_total_power" class="text-start text-wrap" style="font-size: 10px;">Total Power</th> -->
+                          <!-- Extra Fields end -->
+
+                        <th name="th_priceunit" class="text-end text-wrap" style="font-size: 10px;">Unit Price</th>
+                        <th name="th_discount" t-if="display_discount" class="text-end" style="font-size: 10px;">
+                            <span >Disc.%</span>
+                        </th>
+                        <th name="th_taxes" class="text-end" style="font-size: 10px;">Taxes</th>
+                        <th name="th_subtotal" class="text-end" style="font-size: 10px;">
+                            <span>Amount</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+
+                    <t t-set="current_subtotal" t-value="0"/>
+
+                    <t t-foreach="lines_to_report" t-as="line">
+
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+
+                        <tr
+                            t-att-class="'fw-bold o_line_section' if (
+                                line.display_type == 'line_section'
+                                or line.product_type == 'combo'
+                            )
+                            else 'fst-italic o_line_note' if line.display_type == 'line_note'
+                            else ''"
+                        >
+                            <t t-if="not line.display_type and line.product_type != 'combo'">
+                                <td name="td_type"><span t-field="line.name" style="font-size: 10px;">Bacon Burger</span></td>
+                                <td name="td_quantity" class="text-end text-wrap">
+                                    <span t-field="line.product_uom_qty" style="font-size: 10px;">3</span>
+                                    <span t-field="line.product_uom" style="font-size: 10px;">units</span>
+                                    <span t-if="line.product_packaging_id">
+                                        (<span t-field="line.product_packaging_qty" t-options='{"widget": "integer"}'/> <span t-field="line.product_packaging_id"/>)
+                                    </span>
+                                </td>
+
+                                <!-- Extra Fields start -->
+                                <td  name="td_location">
+                                    <span t-field="line.product_id.c_location" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_dimension">
+                                    <span t-field="line.product_id.c_dimension" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_finish">
+                                    <span t-field="line.product_id.c_finish" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_adaptability">
+                                    <span t-field="line.product_id.c_adaptability" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_ip_rating">
+                                    <span t-field="line.product_id.c_ip_rating" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_optics_type">
+                                    <span t-field="line.product_id.c_optics_type" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_beam_angle">
+                                    <span t-field="line.product_id.c_beam_angle" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_light_source">
+                                    <span t-field="line.product_id.c_light_source" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_actual_power">
+                                    <span t-field="line.product_id.c_actual_power" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_unit">
+                                    <span t-field="line.product_id.c_unit" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_lumen_package">
+                                    <span t-field="line.product_id.c_lumen_package" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_color_temperature">
+                                    <span t-field="line.product_id.c_color_temperature" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_cri">
+                                    <span t-field="line.product_id.c_cri" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_power_supply">
+                                    <span t-field="line.product_id.c_power_supply" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <!-- <td  name="td_control_type">
+                                    <span t-field="line.product_id.c_control_type" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_unit">
+                                    <span t-field="line.product_id.c_unit" style="font-size: 10px;">Bacon Burger</span>
+                                </td>
+                                <td  name="td_total_power">
+                                    <span t-field="line.product_id.c_total_power" style="font-size: 10px;">Bacon Burger</span>
+                                </td> -->
+                                <!-- Extra Fields start -->
+
+                                <td name="td_priceunit" class="text-end text-wrap">
+                                    <span t-field="line.price_unit" style="font-size: 10px;">3</span>
+                                </td>
+                                <td t-if="display_discount" class="text-end">
+                                    <span t-field="line.discount" style="font-size: 10px;">-</span>
+                                </td>
+                                <t t-set="taxes" t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_id])"/>
+                                <td name="td_taxes" t-attf-class="text-end {{ 'text-wrap' if len(taxes) &lt; 10 else '' }}">
+                                    <span t-out="taxes" style="font-size: 10px;">Tax 15%</span>
+                                </td>
+                                <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                                    <span t-field="line.price_subtotal" style="font-size: 10px;">27.00</span>
+                                </td>
+                            </t>
+                            <!-- <t t-elif="line.display_type == 'line_section' or line.product_type == 'combo'">
+                                <td name="td_section_line" colspan="99">
+                                    <span t-field="line.name">A section title</span>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-elif="line.display_type == 'line_note'">
+                                <td name="td_note_line" colspan="99">
+                                    <span t-field="line.name">A note, whose content usually applies to the section or product above.</span>
+                                </td>
+                            </t> -->
+                        </tr>
+
+                        <t
+                            t-if="current_section and (
+                                line_last
+                                or lines_to_report[line_index+1].display_type == 'line_section'
+                                or lines_to_report[line_index+1].product_type == 'combo'
+                                or (
+                                    line.combo_item_id
+                                    and not lines_to_report[line_index+1].combo_item_id
+                                )
+                            ) and not line.is_downpayment"
+                        >
+                            <t t-set="current_section" t-value="None"/>
+                            <tr class="is-subtotal text-end">
+                                <td name="td_section_subtotal" colspan="99">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <span
+                                        t-out="current_subtotal"
+                                        t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                    >31.05</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <!-- Email Template for 1st Round -->
+    <record id="email_template_1st_round" model="mail.template">
+        <field name="name">1st Round Invitation</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="subject">Invitation for 1st Round Interview</field>
+        <field name="email_from">${(object.user_id.email or 'noreply@example.com')|safe}</field>
+        <field name="email_to">${object.email_from|safe}</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>Dear {{object.partner_name}},</p>
+                <p>We are pleased to invite you to the 1st round of interviews:</p>
+                <ul>
+                    <li><strong>Date:</strong> {{object.interview_date}}</li>
+                    <li><strong>Time:</strong> {{object.interview_time}}</li>
+                </ul>
+                <p>Best regards,<br/>Recruitment Team</p>
+            ]]>
+        </field>
+    </record>
+
+    <!-- Email Template for 2nd Round -->
+    <record id="email_template_2nd_round" model="mail.template">
+        <field name="name">2nd Round Invitation</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="subject">Invitation for 2nd Round Interview</field>
+        <field name="email_from">${(object.user_id.email or 'noreply@example.com')|safe}</field>
+        <field name="email_to">${object.email_from|safe}</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>Dear {{object.partner_name}},</p>
+                <p>You have successfully cleared the 1st round. Please attend the 2nd round interview:</p>
+                <ul>
+                    <li><strong>Date:</strong> {{object.interview_date}}</li>
+                    <li><strong>Time:</strong> {{object.interview_time}}</li>
+                </ul>
+                <p>Best regards,<br/>Recruitment Team</p>
+            ]]>
+        </field>
+    </record>
+
+    <!-- Add more templates for other stages -->
+</odoo>

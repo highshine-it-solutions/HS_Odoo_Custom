@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+      <field name="name">product.template.product.form.custom</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/> <!-- Ensure correct parent view -->
+      <field name="arch" type="xml">
+          <xpath expr="//notebook" position="inside">
+            <page string="Bill of Quantity">
+                <group>
+                  <field name="c_location"/>
+                  <field name="c_product_reference"/>
+                  <field name="c_dimension"/>
+                  <field name="c_finish"/>
+                  <field name="c_adaptability"/>
+                  <field name="c_ip_rating"/>
+                  <field name="c_optics_type"/>
+                  <field name="c_beam_angle"/>
+                  <field name="c_light_source"/>
+                  <field name="c_actual_power"/>
+                  <field name="c_unit"/>
+                  <field name="c_lumen_package"/>
+                  <field name="c_color_temperature"/>
+                  <field name="c_cri"/>
+                  <field name="c_power_supply"/>
+                  <field name="c_control_type"/>
+                  <field name="c_unit"/>
+                  <field name="c_total_power"/>
+                </group>
+            </page>
+
+          </xpath>
+      </field>
+  </record>
+</odoo>

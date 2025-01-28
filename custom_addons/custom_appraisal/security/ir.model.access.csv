@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_appraisal_custom_appraisal,custom_appraisal.custom_appraisal,model_custom_appraisal_custom_appraisal,base.group_user,1,1,1,1
